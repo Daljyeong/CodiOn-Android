@@ -26,7 +26,8 @@ import com.konkuk.codion.ui.theme.Gray900
 
 @Composable
 fun RegisterWithEmailScreen(
-    onBackClick: () -> Unit  // 뒤로 가기
+    onBackClick: () -> Unit,  // 뒤로 가기
+    navigateToRegister: () -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var isTimerVisible by remember { mutableStateOf(false) }
@@ -103,7 +104,8 @@ fun RegisterWithEmailScreen(
             BigButtonComponent(
                 containerColor = Gray900,
                 contentColor = Gray100,
-                text = stringResource(R.string.next)
+                text = stringResource(R.string.next),
+                onClick = { navigateToRegister() }
             )
             Spacer(modifier = Modifier.height(32.dp))
         }
@@ -114,6 +116,7 @@ fun RegisterWithEmailScreen(
 @Composable
 fun RegisterWithEmailScreenPreview() {
     RegisterWithEmailScreen(
-        onBackClick = {}
+        onBackClick = {},
+        navigateToRegister = {}
     )
 }

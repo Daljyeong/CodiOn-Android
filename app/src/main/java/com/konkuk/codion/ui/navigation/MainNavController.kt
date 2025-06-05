@@ -14,6 +14,7 @@ import com.konkuk.codion.ui.myCloset.navigation.navigateToMyCloset
 import com.konkuk.codion.ui.mypage.navigation.navigateToMypage
 import com.konkuk.codion.ui.onboarding.navigation.navigateOnboardingToHome
 import com.konkuk.codion.ui.onboarding.navigation.navigateToLogin
+import com.konkuk.codion.ui.onboarding.navigation.navigateToRegister
 import com.konkuk.codion.ui.onboarding.navigation.navigateToRegisterMain
 import com.konkuk.codion.ui.onboarding.navigation.navigateToRegisterWithEmail
 
@@ -68,6 +69,10 @@ class MainNavController(
 
     fun navigateToRegisterWithEmail() {
         navController.navigateToRegisterWithEmail()
+    }
+
+    fun navigateToRegister() {
+        navController.navigateToRegister()
     }
 
     fun navigateToAddMyClothesPicture() {

@@ -7,6 +7,7 @@ import com.konkuk.codion.ui.navigation.MainTabRoute
 import com.konkuk.codion.ui.navigation.Routes
 import com.konkuk.codion.ui.onboarding.screen.LoginScreen
 import com.konkuk.codion.ui.onboarding.screen.RegisterMainScreen
+import com.konkuk.codion.ui.onboarding.screen.RegisterScreen
 import com.konkuk.codion.ui.onboarding.screen.RegisterWithEmailScreen
 import com.konkuk.codion.ui.onboarding.screen.SplashScreen
 
@@ -30,12 +31,17 @@ fun NavController.navigateToRegisterWithEmail() {
     navigate(Routes.RegisterWithEmail)
 }
 
+fun NavController.navigateToRegister() {
+    navigate(Routes.Register)
+}
+
 fun NavGraphBuilder.onboardingNavGraph(
     navigateBack: () -> Unit,
     navigateToLogin: () -> Unit,
     navigateOnboardingToHome: () -> Unit,
     navigateToRegisterMain: () -> Unit,
-    navigateToRegisterWithEmail: () -> Unit
+    navigateToRegisterWithEmail: () -> Unit,
+    navigateToRegister: () -> Unit
 ) {
     composable<Routes.Splash> {
         SplashScreen(
@@ -56,6 +62,12 @@ fun NavGraphBuilder.onboardingNavGraph(
     }
     composable<Routes.RegisterWithEmail> {
         RegisterWithEmailScreen(
+            onBackClick = navigateBack,
+            navigateToRegister = navigateToRegister
+        )
+    }
+    composable<Routes.Register> {
+        RegisterScreen(
             onBackClick = navigateBack
         )
     }

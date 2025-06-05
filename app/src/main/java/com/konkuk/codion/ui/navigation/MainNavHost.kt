@@ -36,7 +36,8 @@ fun MainNavHost(
                 navigateToLogin = navigator::navigateToLogin,
                 navigateOnboardingToHome = navigator::navigateOnboardingToHome,
                 navigateToRegisterMain = navigator::navigateToRegisterMain,
-                navigateToRegisterWithEmail = navigator::navigateToRegisterWithEmail
+                navigateToRegisterWithEmail = navigator::navigateToRegisterWithEmail,
+                navigateToRegister = navigator::navigateToRegister
             )
 
             homeNavGraph(

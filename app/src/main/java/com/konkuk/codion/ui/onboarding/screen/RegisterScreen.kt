@@ -28,7 +28,9 @@ import com.konkuk.codion.ui.theme.Gray700
 import com.konkuk.codion.ui.theme.Gray900
 
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(
+    onBackClick: () -> Unit  // 뒤로 가기
+) {
     var nickname by remember { mutableStateOf("") }
 
     Scaffold(
@@ -36,7 +38,7 @@ fun RegisterScreen() {
             TopAppBarComponent(
                 title = stringResource(R.string.register),
                 leftIcon = painterResource(R.drawable.ic_back),
-                onLeftClicked = { },
+                onLeftClicked = { onBackClick() },
                 rightIcon = null,
                 onRightClicked = null
             )
@@ -105,5 +107,7 @@ fun RegisterScreen() {
 @Preview
 @Composable
 fun RegisterScreenPreview() {
-    RegisterScreen()
+    RegisterScreen(
+        onBackClick = {}
+    )
 }

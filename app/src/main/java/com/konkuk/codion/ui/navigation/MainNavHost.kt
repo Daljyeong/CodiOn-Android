@@ -32,8 +32,10 @@ fun MainNavHost(
             startDestination = navigator.startDestination,
         ) {
             onboardingNavGraph(
+                navigateBack = navigator::navigateUp,
                 navigateToLogin = navigator::navigateToLogin,
-                navigateOnboardingToHome = navigator::navigateOnboardingToHome
+                navigateOnboardingToHome = navigator::navigateOnboardingToHome,
+                navigateToRegisterMain = navigator::navigateToRegisterMain
             )
 
             homeNavGraph(

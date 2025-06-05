@@ -23,13 +23,15 @@ import com.konkuk.codion.ui.theme.CodiOnTypography
 import com.konkuk.codion.ui.theme.Gray900
 
 @Composable
-fun RegisterMainScreen() {
+fun RegisterMainScreen(
+    onBackClick: () -> Unit  // 뒤로 가기
+) {
     Scaffold(
         topBar = {
             TopAppBarComponent(
                 title = stringResource(R.string.register),
                 leftIcon = painterResource(R.drawable.ic_back),
-                onLeftClicked = { },
+                onLeftClicked = { onBackClick() },
                 rightIcon = null,
                 onRightClicked = null
             )
@@ -65,5 +67,7 @@ fun RegisterMainScreen() {
 @Preview
 @Composable
 fun RegisterMainScreenPreview() {
-    RegisterMainScreen()
+    RegisterMainScreen(
+        onBackClick = {}
+    )
 }

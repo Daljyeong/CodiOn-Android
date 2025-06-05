@@ -6,8 +6,8 @@ import androidx.navigation.compose.composable
 import com.konkuk.codion.ui.navigation.MainTabRoute
 import com.konkuk.codion.ui.navigation.Routes
 import com.konkuk.codion.ui.onboarding.screen.LoginScreen
+import com.konkuk.codion.ui.onboarding.screen.RegisterMainScreen
 import com.konkuk.codion.ui.onboarding.screen.SplashScreen
-import com.konkuk.codion.ui.onboarding.viewmodel.LoginViewModel
 
 fun NavController.navigateToLogin() {
     navigate(Routes.Login)
@@ -21,9 +21,15 @@ fun NavController.navigateOnboardingToHome() {
     }
 }
 
+fun NavController.navigateToRegisterMain() {
+    navigate(Routes.RegisterMain)
+}
+
 fun NavGraphBuilder.onboardingNavGraph(
+    navigateBack: () -> Unit,
     navigateToLogin: () -> Unit,
     navigateOnboardingToHome: () -> Unit,
+    navigateToRegisterMain: () -> Unit
 ) {
     composable<Routes.Splash> {
         SplashScreen(
@@ -32,7 +38,13 @@ fun NavGraphBuilder.onboardingNavGraph(
     }
     composable<Routes.Login> {
         LoginScreen(
-            navigateToHome = navigateOnboardingToHome
+            navigateToHome = navigateOnboardingToHome,
+            navigateToRegisterMain = navigateToRegisterMain
+        )
+    }
+    composable<Routes.RegisterMain> {
+        RegisterMainScreen(
+            onBackClick = navigateBack
         )
     }
 }

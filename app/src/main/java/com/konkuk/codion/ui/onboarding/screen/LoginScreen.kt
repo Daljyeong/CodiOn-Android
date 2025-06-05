@@ -44,6 +44,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun LoginScreen(
     navigateToHome: () -> Unit,
+    navigateToRegisterMain: () -> Unit,  // 회원가입
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val email by viewModel.email.collectAsStateWithLifecycle()
@@ -180,7 +181,7 @@ fun LoginScreen(
                     text = stringResource(R.string.register),
                     modifier = Modifier
                         .padding(end = 8.dp)
-                        .clickable { /* TODO: 클릭 처리 */ },
+                        .clickable { navigateToRegisterMain() },
                     style = CodiOnTypography.pretendard_500_14.copy(
                         textDecoration = TextDecoration.Underline
                     ),

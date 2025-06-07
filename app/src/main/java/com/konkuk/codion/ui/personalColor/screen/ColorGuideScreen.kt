@@ -30,7 +30,8 @@ import com.konkuk.codion.ui.theme.Gray900
 
 @Composable
 fun ColorGuideScreen(
-    onBackClick: () -> Unit  // 뒤로 가기
+    onBackClick: () -> Unit,  // 뒤로 가기
+    navigateToColorCamera: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -77,7 +78,8 @@ fun ColorGuideScreen(
                 BigButtonComponent(
                     containerColor = Gray900,
                     contentColor = Gray100,
-                    text = stringResource(R.string.start_analyze)
+                    text = stringResource(R.string.start_analyze),
+                    onClick = { navigateToColorCamera() }
                 )
                 Spacer(modifier = Modifier.height(32.dp))
             }
@@ -89,6 +91,7 @@ fun ColorGuideScreen(
 @Composable
 fun ColorGuideScreenPreview() {
     ColorGuideScreen(
-        onBackClick = {}
+        onBackClick = {},
+        navigateToColorCamera = {}
     )
 }

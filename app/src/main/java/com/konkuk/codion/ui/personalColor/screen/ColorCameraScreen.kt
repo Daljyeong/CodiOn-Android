@@ -25,13 +25,15 @@ import com.konkuk.codion.ui.theme.Gray500
 import com.konkuk.codion.ui.theme.Gray700
 
 @Composable
-fun ColorCameraScreen() {
+fun ColorCameraScreen(
+    onBackClick: () -> Unit  // 뒤로 가기
+) {
     Scaffold(
         topBar = {
             TopAppBarComponent(
                 title = stringResource(R.string.camera_personal_color),
                 leftIcon = painterResource(R.drawable.ic_back),
-                onLeftClicked = { },
+                onLeftClicked = { onBackClick() },
                 rightIcon = null,
                 onRightClicked = null
             )
@@ -71,5 +73,7 @@ fun ColorCameraScreen() {
 @Preview
 @Composable
 fun ColorCameraScreenPreview() {
-    ColorCameraScreen()
+    ColorCameraScreen(
+        onBackClick = {}
+    )
 }

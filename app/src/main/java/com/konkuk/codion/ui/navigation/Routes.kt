@@ -18,6 +18,8 @@ sealed interface Routes {
     // personalColor
     @Serializable
     data object ColorGuide : Routes
+    @Serializable
+    data object ColorCamera : Routes
 
     // Home
     @Serializable

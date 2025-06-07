@@ -43,7 +43,8 @@ fun MainNavHost(
             )
 
             personalColorNavGraph(
-                navigateBack = navigator::navigateUp
+                navigateBack = navigator::navigateUp,
+                navigateToColorCamera = navigator::navigateToColorCamera
             )
 
             homeNavGraph(

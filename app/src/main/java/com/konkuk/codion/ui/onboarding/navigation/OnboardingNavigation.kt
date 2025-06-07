@@ -41,7 +41,8 @@ fun NavGraphBuilder.onboardingNavGraph(
     navigateOnboardingToHome: () -> Unit,
     navigateToRegisterMain: () -> Unit,
     navigateToRegisterWithEmail: () -> Unit,
-    navigateToRegister: () -> Unit
+    navigateToRegister: () -> Unit,
+    navigateToColorGuide: () -> Unit
 ) {
     composable<Routes.Splash> {
         SplashScreen(
@@ -68,7 +69,8 @@ fun NavGraphBuilder.onboardingNavGraph(
     }
     composable<Routes.Register> {
         RegisterScreen(
-            onBackClick = navigateBack
+            onBackClick = navigateBack,
+            navigateToColorGuide = navigateToColorGuide
         )
     }
 }

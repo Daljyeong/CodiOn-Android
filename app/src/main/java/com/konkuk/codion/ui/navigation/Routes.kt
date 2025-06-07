@@ -15,6 +15,10 @@ sealed interface Routes {
     @Serializable
     data object Register : Routes
 
+    // personalColor
+    @Serializable
+    data object ColorGuide : Routes
+
     // Home
     @Serializable
     data object Home : Routes

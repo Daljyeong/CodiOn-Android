@@ -29,7 +29,8 @@ import com.konkuk.codion.ui.theme.Gray900
 
 @Composable
 fun RegisterScreen(
-    onBackClick: () -> Unit  // 뒤로 가기
+    onBackClick: () -> Unit,  // 뒤로 가기
+    navigateToColorGuide: () -> Unit
 ) {
     var nickname by remember { mutableStateOf("") }
 
@@ -88,7 +89,8 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(4.dp))
             BigButtonWithIconComponent(
                 text = stringResource(id = R.string.camera_personal_color),
-                icon = painterResource(id = R.drawable.ic_camera)
+                icon = painterResource(id = R.drawable.ic_camera),
+                onClick = { navigateToColorGuide() }
             )
 
             Spacer(modifier = Modifier.weight(1f))
@@ -108,6 +110,7 @@ fun RegisterScreen(
 @Composable
 fun RegisterScreenPreview() {
     RegisterScreen(
-        onBackClick = {}
+        onBackClick = {},
+        navigateToColorGuide = {}
     )
 }

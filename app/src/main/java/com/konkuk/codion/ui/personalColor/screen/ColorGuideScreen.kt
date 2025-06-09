@@ -47,7 +47,9 @@ fun ColorGuideScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .ignoreTopPadding(innerPadding),
+//                .ignoreTopPadding(innerPadding)
+                .padding(innerPadding)
+            ,
             contentAlignment = Alignment.Center
         ) {
             Column(

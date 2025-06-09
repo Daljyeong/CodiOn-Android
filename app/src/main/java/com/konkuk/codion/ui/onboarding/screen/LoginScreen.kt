@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,6 +44,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(
+    padding: PaddingValues = PaddingValues(0.dp),
     navigateToHome: () -> Unit,
     navigateToRegisterMain: () -> Unit,  // 회원가입
     viewModel: LoginViewModel = hiltViewModel()
@@ -94,7 +96,8 @@ fun LoginScreen(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+            .padding(padding),
         contentAlignment = Alignment.Center
     ) {
         // 중앙에 보이는 UI

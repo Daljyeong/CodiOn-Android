@@ -33,6 +33,7 @@ fun MainNavHost(
             startDestination = navigator.startDestination,
         ) {
             onboardingNavGraph(
+                padding = padding,
                 navigateBack = navigator::navigateUp,
                 navigateToLogin = navigator::navigateToLogin,
                 navigateOnboardingToHome = navigator::navigateOnboardingToHome,
@@ -46,7 +47,7 @@ fun MainNavHost(
                 navigateBack = navigator::navigateUp,
                 navigateToColorCamera = navigator::navigateToColorCamera,
                 navigateToColorResult = navigator::navigateToColorResult,
-                navigateToRegister = navigator::navigateToRegister
+                navigateToLogin = navigator::navigateToLogin
             )
 
             homeNavGraph(

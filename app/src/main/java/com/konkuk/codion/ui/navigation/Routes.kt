@@ -20,6 +20,8 @@ sealed interface Routes {
     data object ColorGuide : Routes
     @Serializable
     data object ColorCamera : Routes
+    @Serializable
+    data object ColorResult : Routes
 
     // Home
     @Serializable

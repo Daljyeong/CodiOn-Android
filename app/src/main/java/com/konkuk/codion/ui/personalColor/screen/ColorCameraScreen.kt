@@ -35,6 +35,7 @@ import com.konkuk.codion.ui.theme.Gray700
 @Composable
 fun ColorCameraScreen(
     onBackClick: () -> Unit,  // 뒤로 가기
+    navigateToColorResult: () -> Unit,
     cameraViewModel: CameraViewModel = hiltViewModel(LocalContext.current as ComponentActivity)
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -94,7 +95,8 @@ fun ColorCameraScreen(
                     modifier = Modifier.width(200.dp),
                     containerColor = Gray300,
                     contentColor = Gray700,
-                    text = stringResource(R.string.take_photo)
+                    text = stringResource(R.string.take_photo),
+                    onClick = { navigateToColorResult() }
                 )
 
                 Spacer(modifier = Modifier.height(54.dp))
@@ -107,6 +109,7 @@ fun ColorCameraScreen(
 @Composable
 fun ColorCameraScreenPreview() {
     ColorCameraScreen(
-        onBackClick = {}
+        onBackClick = {},
+        navigateToColorResult = {}
     )
 }

@@ -33,14 +33,15 @@ import com.konkuk.codion.ui.theme.Gray900
 
 @Composable
 fun ColorResultScreen(
-    personalColorData: ColorDummyData
+    personalColorData: ColorDummyData,
+    onBackClick: () -> Unit,  // 뒤로 가기
 ) {
     Scaffold(
         topBar = {
             TopAppBarComponent(
                 title = stringResource(R.string.camera_personal_color),
                 leftIcon = painterResource(R.drawable.ic_back),
-                onLeftClicked = { },
+                onLeftClicked = { onBackClick() },
                 rightIcon = null,
                 onRightClicked = null
             )
@@ -135,6 +136,7 @@ fun ColorResultScreen(
 @Composable
 fun ColorResultScreenPreview() {
     ColorResultScreen(
-        personalColorData = ColorDummyData.autumnDummyData
+        personalColorData = ColorDummyData.autumnDummyData,
+        onBackClick = {}
     )
 }

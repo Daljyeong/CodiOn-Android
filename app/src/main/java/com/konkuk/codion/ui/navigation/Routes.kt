@@ -31,6 +31,8 @@ sealed interface Routes {
     @Serializable
     data object CodiRecord : Routes
     @Serializable
+    data object RegisterCodi : Routes
+    @Serializable
     data object RegisterCodiComment : Routes
 
     // myCloset

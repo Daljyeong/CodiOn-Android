@@ -13,7 +13,7 @@ data class CodiRecordDummyData(
             CodiRecordDummyData(
                 date = LocalDate.now(),
                 emotion = EmotionType.HAPPY,
-                content = "니트를 입고 나갔더니 친구들이 다 이쁘다고 칭찬해줬다. 하지만 살짝 추운 감이 있었다. 니트와 매치한 바지도 색상이 잘 어울려서 좋았다."
+                content = "앱이 추천해준대로 입고 나갔는데 날씨에 적절한 옷이었다. 오늘같이 더운 날씨에 반팔과 치마를 입은건 좋은 선택이었다."
             ),
             CodiRecordDummyData(
                 date = LocalDate.of(2025, 3, 17),

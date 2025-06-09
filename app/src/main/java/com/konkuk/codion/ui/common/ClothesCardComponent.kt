@@ -1,6 +1,5 @@
 package com.konkuk.codion.ui.common
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -30,8 +29,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.konkuk.codion.R
-import com.konkuk.codion.ui.common.dummy.ClothesCardDummyData
+import com.konkuk.codion.data.dto.response.ClosetResponse
 import com.konkuk.codion.ui.theme.CodiOnTypography
 import com.konkuk.codion.ui.theme.Gray200
 import com.konkuk.codion.ui.theme.Gray300
@@ -40,11 +40,12 @@ import com.konkuk.codion.ui.theme.Gray700
 
 @Composable
 fun ClothesCardComponent(
-    clothesData: ClothesCardDummyData,
+    clothesData: ClosetResponse,
     isClickable: Boolean = false,
     isSelected: Boolean = false,
+    onClick: (() -> Unit)? = null
 ) {
-    var isHeartClicked by remember { mutableStateOf(clothesData.isHeartClicked) }
+    var isHeartClicked by remember { mutableStateOf(clothesData.favorite) }
 
     val outerPadding: Dp = if (isClickable) 12.dp else 0.dp
     val outerBackgroundColor = if (isClickable && isSelected) Gray300 else Color.Transparent
@@ -56,6 +57,7 @@ fun ClothesCardComponent(
             .background(outerBackgroundColor, shape = RoundedCornerShape(12.dp))
             .border(width = 1.dp, color = outerBorderColor, shape = RoundedCornerShape(12.dp))
             .padding(outerPadding)
+            .clickable(enabled = isClickable) { onClick?.invoke() } // 👉 클릭 가능 시 콜백 호출
     ) {
         Box(
             modifier = Modifier
@@ -63,8 +65,8 @@ fun ClothesCardComponent(
                 .clip(shape = RoundedCornerShape(12.dp))
                 .background(color = Gray200)
         ) {
-            Image(
-                painter = painterResource(id = clothesData.clothesImg),
+            AsyncImage(
+                model = clothesData.imageUrl,
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -100,27 +102,29 @@ fun ClothesCardComponent(
         }
 
         Text(
-            text = clothesData.clothesName,
+            text = clothesData.name,
             style = CodiOnTypography.pretendard_600_16,
             color = Gray700,
             modifier = Modifier.padding(top = 12.dp)
         )
 
         Text(
-            text = clothesData.clothesPersonalColor.label,
+            text = clothesData.personalColor,
             style = CodiOnTypography.pretendard_600_12,
             color = Gray500,
             modifier = Modifier.padding(top = 4.dp)
         )
 
-        LazyRow(
-            modifier = Modifier
-                .width(148.dp)
-                .padding(top = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(clothesData.chipList.size) { index ->
-                ChipComponent(stringResource(id = clothesData.chipList[index]))
+        if (clothesData.situationKeywords.isNotEmpty()) {
+            LazyRow(
+                modifier = Modifier
+                    .width(148.dp)
+                    .padding(top = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(clothesData.situationKeywords.size) { index ->
+                    ChipComponent(clothesData.situationKeywords[index])
+                }
             }
         }
     }
@@ -129,5 +133,5 @@ fun ClothesCardComponent(
 @Preview(showBackground = true)
 @Composable
 private fun ClothesCardComponentPreview() {
-    ClothesCardComponent(ClothesCardDummyData.dummyData[0])
+//    ClothesCardComponent(ClothesCardDummyData.dummyData[0])
 }

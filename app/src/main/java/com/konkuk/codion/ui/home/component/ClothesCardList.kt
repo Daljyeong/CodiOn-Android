@@ -15,8 +15,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.konkuk.codion.R
+import com.konkuk.codion.data.dto.response.ClosetResponse
 import com.konkuk.codion.ui.common.ClothesCardComponent
-import com.konkuk.codion.ui.common.dummy.ClothesCardDummyData
 import com.konkuk.codion.ui.theme.CodiOnTypography
 import com.konkuk.codion.ui.theme.Gray400
 import com.konkuk.codion.ui.theme.Gray700
@@ -24,7 +24,7 @@ import com.konkuk.codion.ui.theme.Gray700
 @Composable
 fun ClothesCardList(
     title: String,
-    clothesDataList: List<ClothesCardDummyData>,
+    clothesDataList: List<ClosetResponse>,
     isEditable: Boolean = false,
 ) {
     val state = rememberLazyListState()

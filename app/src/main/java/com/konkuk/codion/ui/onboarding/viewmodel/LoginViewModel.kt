@@ -49,17 +49,16 @@ class LoginViewModel @Inject constructor(
                 email = email.value,
                 password = password.value
             ).fold(
-                onSuccess = {
-                    Log.d("LoginViewModel", "로그인 성공: ${it}")
+                onSuccess = { loginResponse ->
+                    Log.d("LoginViewModel", "로그인 성공: $loginResponse")
+
                     _loginState.value = LoginState.Success
                 },
                 onFailure = { error ->
                     Log.e("LoginViewModel", "로그인 실패: ${error.message}")
                     _loginState.value = LoginState.Error
-                    when (error) {
-                        is CodiOnApiFailureException -> {
-                            _error.value = error.message
-                        }
+                    if (error is CodiOnApiFailureException) {
+                        _error.value = error.message
                     }
                     delay(1000)
                     _loginState.value = LoginState.Default

@@ -18,14 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.konkuk.codion.R
 import com.konkuk.codion.ui.codiRecord.component.CodiRecordCalendar
 import com.konkuk.codion.ui.codiRecord.component.CodiRecordEmpty
 import com.konkuk.codion.ui.codiRecord.component.MyComment
 import com.konkuk.codion.ui.codiRecord.dummy.CodiRecordDummyData
 import com.konkuk.codion.ui.common.TopAppBarState
-import com.konkuk.codion.ui.common.dummy.ClothesCardDummyData
 import com.konkuk.codion.ui.home.component.ClothesCardList
+import com.konkuk.codion.ui.myCloset.viewmodel.MyClosetViewModel
 import java.time.LocalDate
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -33,8 +35,11 @@ import java.time.LocalDate
 fun CodiRecordScreen(
     padding: PaddingValues,
     onAddClick: () -> Unit,
-    setTopAppBar: (TopAppBarState?) -> Unit
+    setTopAppBar: (TopAppBarState?) -> Unit,
+    viewModel: MyClosetViewModel = hiltViewModel()
 ) {
+    val myCloset by viewModel.closet.collectAsStateWithLifecycle()
+
     val codiRecordMap = CodiRecordDummyData.dummyData.associateBy { it.date }
 
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
@@ -69,7 +74,7 @@ fun CodiRecordScreen(
                             selectedDate.month.value,
                             selectedDate.dayOfMonth
                         ),
-                        clothesDataList = ClothesCardDummyData.dummyData,
+                        clothesDataList = myCloset.filterIndexed { index, _ -> index == 0 || index == 3 }, // 🔥 여기가 핵심!
                         isEditable = true
                     )
 

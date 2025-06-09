@@ -11,6 +11,7 @@ composeBom = "2024.04.01"
 navigationCompose = "2.9.0-beta01"
 kotlinxCollectionsImmutable = "0.3.8"
 kotlinxSerializationJson = "1.8.1"
+datastorePreferences = "1.2.0-alpha02"
 # Networking
 retrofit = "2.11.0"
 retrofit-kotlinx-serialization-json = "1.0.0"
@@ -41,6 +42,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
 # Networking
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-kotlinx-serialization-json" }

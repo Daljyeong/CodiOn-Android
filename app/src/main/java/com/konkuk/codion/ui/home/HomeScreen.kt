@@ -17,17 +17,20 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.konkuk.codion.R
 import com.konkuk.codion.ui.common.TopAppBarState
-import com.konkuk.codion.ui.common.dummy.ClothesCardDummyData
 import com.konkuk.codion.ui.home.component.ClothesCardList
 import com.konkuk.codion.ui.home.component.WeatherInformation
+import com.konkuk.codion.ui.myCloset.viewmodel.MyClosetViewModel
 import com.konkuk.codion.ui.theme.CodiOnTypography
 import com.konkuk.codion.ui.theme.Gray300
 import com.konkuk.codion.ui.theme.Gray700
@@ -36,9 +39,12 @@ import com.konkuk.codion.ui.theme.Gray700
 @Composable
 fun HomeScreen(
     padding: PaddingValues,
-    setTopAppBar: (TopAppBarState?) -> Unit
+    setTopAppBar: (TopAppBarState?) -> Unit,
+    viewModel: MyClosetViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
+
+    val myCloset by viewModel.closet.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         setTopAppBar(
@@ -61,7 +67,7 @@ fun HomeScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = stringResource(R.string.home_nickname, "닉네임"),
+                text = stringResource(R.string.home_nickname, "홍길동"),
                 style = CodiOnTypography.pretendard_400_16,
                 color = Gray700,
             )
@@ -99,7 +105,7 @@ fun HomeScreen(
             )
 
             Text(
-                text = stringResource(R.string.temperature_unit, 20),
+                text = stringResource(R.string.temperature_unit, 28),
                 style = CodiOnTypography.pretendard_700_16,
                 color = Gray700,
                 modifier = Modifier.padding(start = 4.dp)
@@ -112,7 +118,7 @@ fun HomeScreen(
             )
         }
 
-        WeatherInformation(Modifier.padding(top = 8.dp, start = 20.dp, end = 20.dp), 9, 4, 0)
+        WeatherInformation(Modifier.padding(top = 8.dp, start = 20.dp, end = 20.dp), 25 , 3, 0)
 
         Spacer(modifier = Modifier.height(24.dp))
         HorizontalDivider(
@@ -125,14 +131,14 @@ fun HomeScreen(
 
         ClothesCardList(
             title = stringResource(R.string.today_clothes),
-            clothesDataList = ClothesCardDummyData.dummyData
+            clothesDataList = myCloset.drop(4).take(8) // index 4~11
         )
 
         Spacer(modifier = Modifier.height(32.dp))
 
         ClothesCardList(
             title = stringResource(R.string.unusual_clothes),
-            clothesDataList = ClothesCardDummyData.dummyData
+            clothesDataList = myCloset.drop(12).take(8) // index 12~19
         )
         Spacer(modifier = Modifier.height(32.dp))
     }

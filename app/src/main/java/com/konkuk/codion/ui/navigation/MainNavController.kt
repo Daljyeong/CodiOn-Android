@@ -8,6 +8,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.konkuk.codion.ui.codiRecord.navigation.navigateToCodiRecord
+import com.konkuk.codion.ui.codiRecord.navigation.navigateToRegisterCodi
+import com.konkuk.codion.ui.codiRecord.navigation.navigateToRegisterCodiComment
 import com.konkuk.codion.ui.home.navigation.navigateToHome
 import com.konkuk.codion.ui.myCloset.navigation.navigateToAddMyClothesPicture
 import com.konkuk.codion.ui.myCloset.navigation.navigateToMyCloset
@@ -93,6 +95,18 @@ class MainNavController(
 
     fun navigateToAddMyClothesPicture() {
         navController.navigateToAddMyClothesPicture()
+    }
+
+    fun navigateToRegisterCodi() {
+        navController.navigateToRegisterCodi()
+    }
+
+    fun navigateToRegisterCodiComment() {
+        navController.navigateToRegisterCodiComment()
+    }
+
+    fun navigateBackToCodiRecordTab() {
+        navigate(MainTab.CODI_RECORD)
     }
 
     @Composable

@@ -55,7 +55,9 @@ fun MainNavHost(
 
             codiRecordNavGraph(
                 padding = padding,
-                navigateToAddMyClothesPicture = navigator::navigateToAddMyClothesPicture,
+                navigateToCodiRecord = navigator::navigateBackToCodiRecordTab,
+                navigateToRegisterCodiComment = navigator::navigateToRegisterCodiComment,
+                navigateToRegisterCodi = navigator::navigateToRegisterCodi,
                 setTopAppBar = setTopAppBar
             )
 

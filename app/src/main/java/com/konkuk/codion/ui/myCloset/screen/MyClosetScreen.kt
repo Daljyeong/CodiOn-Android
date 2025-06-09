@@ -1,6 +1,7 @@
 package com.konkuk.codion.ui.myCloset.screen
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -31,10 +32,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.konkuk.codion.R
 import com.konkuk.codion.ui.common.ClothesCardComponent
 import com.konkuk.codion.ui.common.TopAppBarState
-import com.konkuk.codion.ui.common.dummy.ClothesCardDummyData
 import com.konkuk.codion.ui.common.filter.FilterBottomSheetList
 import com.konkuk.codion.ui.common.filter.FilterButton
 import com.konkuk.codion.ui.common.filter.FilterType
@@ -42,6 +44,7 @@ import com.konkuk.codion.ui.common.filter.PersonalColorType
 import com.konkuk.codion.ui.common.filter.SortDropdown
 import com.konkuk.codion.ui.common.filter.SortType
 import com.konkuk.codion.ui.myCloset.ClothesCategoryType
+import com.konkuk.codion.ui.myCloset.viewmodel.MyClosetViewModel
 import com.konkuk.codion.ui.theme.CodiOnTypography
 import com.konkuk.codion.ui.theme.Gray700
 import com.konkuk.codion.ui.theme.Gray900
@@ -51,8 +54,11 @@ import com.konkuk.codion.ui.theme.Gray900
 fun MyClosetScreen(
     padding: PaddingValues,
     onAddClick: () -> Unit,
-    setTopAppBar: (TopAppBarState?) -> Unit
+    setTopAppBar: (TopAppBarState?) -> Unit,
+    viewModel: MyClosetViewModel = hiltViewModel()
 ) {
+    val myCloset by viewModel.closet.collectAsStateWithLifecycle()
+
     val topLevelTabs = ClothesCategoryType.getTopLevelCategories()
     var selectedTab by remember { mutableStateOf(topLevelTabs.first()) }
 
@@ -65,24 +71,41 @@ fun MyClosetScreen(
 
     var expandedSheet by remember { mutableStateOf<FilterType?>(null) }
 
-    val allClothes = ClothesCardDummyData.dummyData
+//    val allClothes = ClothesCardDummyData.dummyData
 
-    val filteredClothes = allClothes.filter { item ->
-        val matchCategory =
-            appliedCategoryOptions.isEmpty() || appliedCategoryOptions.contains(item.clothesType)
-        val matchPersonalColor =
-            appliedPersonalColorOptions.isEmpty() || appliedPersonalColorOptions.contains(item.clothesPersonalColor)
-        val matchTopTab =
-            selectedTab == ClothesCategoryType.ALL || item.clothesType.parent == selectedTab
-
-        matchCategory && matchPersonalColor && matchTopTab
-    }
+//    val filteredClothes = myCloset.filter { item ->
+//        val categoryType = item.toCategoryType()
+//        val personalColorType = item.toPersonalColorType()
+//
+//        val matchCategory =
+//            appliedCategoryOptions.isEmpty() || (categoryType != null && appliedCategoryOptions.contains(categoryType))
+//        val matchPersonalColor =
+//            appliedPersonalColorOptions.isEmpty() || (personalColorType != null && appliedPersonalColorOptions.contains(personalColorType))
+//        val matchTopTab =
+//            selectedTab == ClothesCategoryType.ALL || (categoryType?.parent == selectedTab)
+//
+//        matchCategory && matchPersonalColor && matchTopTab
+//    }
 
     // sort
     val options = SortType.entries
     var selectedOption by rememberSaveable { mutableStateOf(SortType.FREQUENCY) }
 
-    LaunchedEffect(Unit) {
+//    LaunchedEffect(myCloset) {
+//        setTopAppBar(
+//            TopAppBarState(
+//                titleId = R.string.my_closet,
+//                rightIconId = R.drawable.ic_add,
+//                onRightClicked = {
+//                    onAddClick()
+//                }
+//            )
+//        )
+//
+//        viewModel.getCloset()
+//        Log.d("MyClosetScreen", "myCloset: $myCloset")
+//    }
+    LaunchedEffect(selectedTab) {
         setTopAppBar(
             TopAppBarState(
                 titleId = R.string.my_closet,
@@ -92,7 +115,17 @@ fun MyClosetScreen(
                 }
             )
         )
+
+        val categoryToSend = if (selectedTab == ClothesCategoryType.ALL) null else selectedTab.name
+
+        Log.d("MyClosetScreen", "탭 전환 → category: $categoryToSend")
+
+        viewModel.getCloset(
+            category = categoryToSend,
+            personalColor = appliedPersonalColorOptions.firstOrNull()?.label
+        )
     }
+
 
     Column(
         modifier = Modifier
@@ -139,6 +172,14 @@ fun MyClosetScreen(
                 appliedPersonalColorOptions.addAll(tempPersonalColorOptions)
 
                 expandedSheet = null
+
+                Log.d("필터", "보낼 category: ${selectedTab.name}, personalColor: ${appliedPersonalColorOptions.firstOrNull()?.label}")
+
+                viewModel.getCloset(
+                    category = selectedTab.name,  // ✅ 여기! 항상 대분류 값만 보냄
+                    personalColor = appliedPersonalColorOptions.firstOrNull()?.label,
+                    // 추후 color, situationKeywords 등 추가 가능
+                )
             },
             expandedSheet = expandedSheet,
             onDismiss = { expandedSheet = null },
@@ -189,7 +230,7 @@ fun MyClosetScreen(
             columns = GridCells.Fixed(2),
             modifier = Modifier.padding(horizontal = 20.dp),
         ) {
-            items(filteredClothes) { item ->
+            items(myCloset) { item ->
                 ClothesCardComponent(clothesData = item, isClickable = true, isSelected = false)
             }
         }

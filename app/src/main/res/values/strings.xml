@@ -25,6 +25,7 @@
     <string name="start_analyze">분석 시작하기</string>
     <string name="analyzing">퍼스널컬러를 분석 중입니다</string>
     <string name="edit_profile_full">프로필 수정하기</string>
+    <string name="take_photo">촬영하기</string>
 
     <!--    home    -->
     <string name="home_nickname">%s님의</string>

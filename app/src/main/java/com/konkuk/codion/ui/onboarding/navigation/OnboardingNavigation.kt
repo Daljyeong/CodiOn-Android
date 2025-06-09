@@ -1,5 +1,8 @@
 package com.konkuk.codion.ui.onboarding.navigation
 
+import android.R.attr.padding
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -36,6 +39,7 @@ fun NavController.navigateToRegister() {
 }
 
 fun NavGraphBuilder.onboardingNavGraph(
+    padding: PaddingValues = PaddingValues(0.dp),
     navigateBack: () -> Unit,
     navigateToLogin: () -> Unit,
     navigateOnboardingToHome: () -> Unit,
@@ -51,6 +55,7 @@ fun NavGraphBuilder.onboardingNavGraph(
     }
     composable<Routes.Login> {
         LoginScreen(
+            padding = padding,
             navigateToHome = navigateOnboardingToHome,
             navigateToRegisterMain = navigateToRegisterMain
         )
